@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Secure Headers Demo — Secure</title>
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none';">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+</head>
+<body>
+  <h1>Secure Page</h1>
+  <p>This page demonstrates recommended header-based protections and explains why they matter.</p>
+
+  <section style="margin-top:16px;">
+    <h2>Recommended response headers (set on the server)</h2>
+    <pre style="background:#f7f7f7; padding:8px; border-radius:4px;">
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+Content-Security-Policy: default-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none';
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: no-referrer
+Permissions-Policy: geolocation=(), microphone=()
+    </pre>
+    <p><strong>Important:</strong> These should be delivered as <em>response headers</em> by the server in production — meta tags alone are not sufficient.</p>
+  </section>
+
+  <section style="margin-top:12px;">
+    <h2>Why these help</h2>
+    <ul>
+      <li><strong>CSP</strong> reduces XSS risk by restricting where scripts and other resources can load from.</li>
+      <li><strong>HSTS</strong> forces browsers to use HTTPS and prevents downgrade attacks.</li>
+      <li><strong>X-Frame-Options / frame-ancestors</strong> prevent clickjacking.</li>
+      <li><strong>X-Content-Type-Options</strong> prevents MIME-type sniffing.</li>
+      <li><strong>Referrer-Policy</strong> limits leaking URL data to other sites.</li>
+    </ul>
+  </section>
+
+  <p style="margin-top:16px;">Console note: open DevTools → Console to see the page load message.</p>
+  <script>
+    console.log("This is the secure demo page. Real protection requires server-set response headers.");
+  </script>
+</body>
+</html>
